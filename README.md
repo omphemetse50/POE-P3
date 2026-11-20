@@ -16,3 +16,4 @@ Fix application bugs and improve performance
 Update README with project documentation
 Finalise RaceDayMVC project and update application
 Implement data access functionality
+Add controller actions for application features
