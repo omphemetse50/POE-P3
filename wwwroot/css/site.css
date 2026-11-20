@@ -1,0 +1,421 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+
+/* =================================
+   RACEDAY GLOBAL THEME
+================================= */
+
+:root {
+    --raceday-navy: #101D35;
+    --raceday-blue: #243E62;
+    --raceday-gold: #FFC107;
+    --raceday-background: #F4F6FA;
+    --raceday-white: #FFFFFF;
+}
+
+/* PAGE */
+
+html {
+    min-height: 100%;
+}
+
+body {
+    background-color: var(--raceday-background);
+    color: var(--raceday-navy);
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* NAVIGATION */
+
+.raceday-navbar {
+    background: linear-gradient( 110deg, var(--raceday-navy), var(--raceday-blue) );
+    padding: 16px 0;
+}
+
+.raceday-brand {
+    color: white !important;
+    font-weight: 800;
+    letter-spacing: 2px;
+    font-size: 22px;
+}
+
+.brand-icon {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 36px;
+    height: 36px;
+    background-color: var(--raceday-gold);
+    color: var(--raceday-navy);
+    border-radius: 9px;
+    margin-right: 7px;
+}
+
+.raceday-navbar .nav-link {
+    color: #FFFFFF !important;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+    .raceday-navbar .nav-link:hover {
+        color: var(--raceday-gold) !important;
+    }
+
+.raceday-nav-button {
+    background-color: var(--raceday-gold);
+    color: var(--raceday-navy);
+    font-weight: 700;
+    border-radius: 8px;
+    padding: 9px 22px;
+}
+
+    .raceday-nav-button:hover {
+        background-color: #E5AC00;
+        color: var(--raceday-navy);
+    }
+
+/* MAIN CONTENT */
+
+.raceday-main {
+    flex: 1;
+    padding-top: 30px;
+    padding-bottom: 50px;
+}
+
+/* CARDS */
+
+.card {
+    border-radius: 16px;
+    border: none;
+}
+
+    .card.shadow-sm {
+        box-shadow: 0 5px 20px rgba(16, 29, 53, 0.07) !important;
+    }
+
+/* BUTTONS */
+
+.btn-primary {
+    background-color: var(--raceday-navy);
+    border-color: var(--raceday-navy);
+}
+
+    .btn-primary:hover {
+        background-color: var(--raceday-blue);
+        border-color: var(--raceday-blue);
+    }
+
+.btn-warning {
+    background-color: var(--raceday-gold);
+    border-color: var(--raceday-gold);
+    color: var(--raceday-navy);
+    font-weight: 700;
+}
+
+    .btn-warning:hover {
+        background-color: #E5AC00;
+        border-color: #E5AC00;
+        color: var(--raceday-navy);
+    }
+
+/* TABLES */
+
+.table thead th {
+    background-color: var(--raceday-navy);
+    color: white;
+    border: none;
+}
+
+.table {
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+/* FOOTER */
+
+.raceday-footer {
+    background-color: var(--raceday-navy);
+    color: white;
+    margin-top: auto;
+}
+
+    .raceday-footer p {
+        color: #C7D1E0;
+    }
+
+/* =====================================
+   RACEDAY HOMEPAGE
+===================================== */
+
+/* HERO */
+
+.raceday-hero {
+    position: relative;
+    min-height: 570px;
+    display: flex;
+    align-items: center;
+    background-image: url('/images/home-hero.jpg');
+    background-size: cover;
+    background-position: center 45%;
+    color: white;
+    overflow: hidden;
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient( 90deg, rgba(16, 29, 53, 0.98) 0%, rgba(16, 29, 53, 0.82) 40%, rgba(16, 29, 53, 0.15) 100% );
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+
+.hero-tag,
+.section-label {
+    color: #FFC107;
+    font-weight: 800;
+    letter-spacing: 3px;
+    font-size: 12px;
+}
+
+.hero-content h1 {
+    font-size: clamp(55px, 8vw, 88px);
+    font-weight: 900;
+    line-height: 0.98;
+    margin-top: 20px;
+    letter-spacing: -3px;
+}
+
+    .hero-content h1 span {
+        color: #FFC107;
+    }
+
+.hero-content p {
+    font-size: 19px;
+    max-width: 480px;
+    line-height: 1.7;
+    margin: 25px 0;
+}
+
+.hero-bottom-text {
+    position: absolute;
+    right: 5%;
+    bottom: 25px;
+    color: rgba(255,255,255,0.8);
+    font-weight: 800;
+    letter-spacing: 4px;
+    z-index: 2;
+}
+
+/* GOLD BUTTON */
+
+.raceday-gold-button {
+    background-color: #FFC107;
+    border: 2px solid #FFC107;
+    color: #101D35;
+    font-weight: 800;
+    padding: 13px 27px;
+    border-radius: 8px;
+}
+
+    .raceday-gold-button:hover {
+        background-color: #E5AC00;
+        border-color: #E5AC00;
+        color: #101D35;
+    }
+
+/* SECTION HEADINGS */
+
+.section-heading {
+    color: #101D35;
+    font-weight: 900;
+    margin-top: 12px;
+    letter-spacing: 1px;
+}
+
+/* EVENT CARDS */
+
+.home-event-card {
+    height: 100%;
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(16,29,53,0.08);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+    .home-event-card:hover {
+        transform: translateY(-7px);
+        box-shadow: 0 12px 28px rgba(16,29,53,0.15);
+    }
+
+.home-event-image {
+    height: 230px;
+    background-size: cover;
+    background-position: center;
+}
+
+.running-image {
+    background-image: url('/images/running-event.jpg');
+}
+
+.cycling-image {
+    background-image: url('/images/cycling-event.jpg');
+}
+
+.walking-image {
+    background-image: url('/images/walking-event.jpg');
+}
+
+.event-category {
+    color: #A87900;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 2px;
+}
+
+.raceday-text-link {
+    color: #101D35;
+    font-weight: 800;
+    text-decoration: none;
+    font-size: 13px;
+}
+
+    .raceday-text-link:hover {
+        color: #C28D00;
+    }
+
+/* FEATURES */
+
+.raceday-features {
+    background: linear-gradient( 120deg, #101D35, #243E62 );
+}
+
+.feature-item {
+    color: white;
+    padding: 25px 15px;
+}
+
+    .feature-item p {
+        color: #C7D1E0;
+        line-height: 1.7;
+    }
+
+.feature-icon {
+    width: 65px;
+    height: 65px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    border: 2px solid #FFC107;
+    color: #FFC107;
+    border-radius: 50%;
+    font-weight: 900;
+    font-size: 20px;
+}
+
+.feature-item h5 {
+    font-weight: 800;
+    margin-bottom: 12px;
+}
+
+/* MOTIVATIONAL BANNER */
+
+.raceday-motivation {
+    min-height: 300px;
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    align-items: center;
+    background-image: url('/Images/home-banner.jpg');
+    background-size: cover;
+    background-position: center 65%;
+    color: white;
+}
+
+.motivation-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient( 90deg, rgba(16,29,53,0.96), rgba(16,29,53,0.25) );
+}
+
+.motivation-content {
+    position: relative;
+    z-index: 2;
+    padding: 45px;
+}
+
+    .motivation-content h2 {
+        font-size: clamp(30px, 5vw, 48px);
+        font-weight: 900;
+    }
+
+        .motivation-content h2 span {
+            color: #FFC107;
+        }
+
+    .motivation-content p {
+        color: #FFC107;
+        font-weight: 800;
+        letter-spacing: 2px;
+    }
+
+/* MOBILE RESPONSIVENESS */
+
+@media (max-width: 768px) {
+
+    .raceday-hero {
+        min-height: 500px;
+        background-position: 65% center;
+    }
+
+    .hero-content h1 {
+        font-size: 55px;
+    }
+
+    .hero-content p {
+        font-size: 16px;
+    }
+
+    .hero-bottom-text {
+        display: none;
+    }
+
+    .home-event-image {
+        height: 210px;
+    }
+
+    .motivation-content {
+        padding: 25px;
+    }
+}

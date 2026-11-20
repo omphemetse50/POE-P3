@@ -1,0 +1,65 @@
+﻿@model RaceDayMVC.Models.EventViewModel
+
+@{
+    ViewData["Title"] = "Create Event";
+}
+
+<div class="container mt-4">
+    <h2>Create New Event</h2>
+    <p class="text-muted">Enter the details of your new RaceDay event.</p>
+
+    <form asp-action="CreateEvent" method="post">
+        @Html.AntiForgeryToken()
+
+        <div asp-validation-summary="ModelOnly"
+             class="text-danger mb-3"></div>
+
+        <div class="mb-3">
+            <label asp-for="Name" class="form-label">Event Name</label>
+            <input asp-for="Name" class="form-control"
+                   placeholder="e.g. Johannesburg Fun Run" />
+            <span asp-validation-for="Name"
+                  class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Description" class="form-label">Description</label>
+            <textarea asp-for="Description" class="form-control"
+                      rows="3"></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Location" class="form-label">Location</label>
+            <input asp-for="Location" class="form-control"
+                   placeholder="e.g. Johannesburg" />
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="EventType" class="form-label">Event Type</label>
+            <select asp-for="EventType" class="form-select">
+                <option value="">Select event type</option>
+                <option value="Running">Running</option>
+                <option value="Walking">Walking</option>
+                <option value="Cycling">Cycling</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Date" class="form-label">Event Date</label>
+            <input asp-for="Date" type="date" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Distance" class="form-label">Distance</label>
+            <input asp-for="Distance" class="form-control"
+                   placeholder="e.g. 10km" />
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+            Create Event
+        </button>
+
+        <a asp-action="Dashboard"
+           class="btn btn-secondary">Cancel</a>
+    </form>
+</div>

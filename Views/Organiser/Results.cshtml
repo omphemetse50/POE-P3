@@ -1,0 +1,88 @@
+﻿@model List<RaceDayMVC.Models.ResultViewModel>
+
+@{
+    ViewData["Title"] = "Results Management";
+}
+
+<div class="container mt-5">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="fw-bold">Results Management</h1>
+            <p class="text-muted">
+                View participant finishing times and positions.
+            </p>
+        </div>
+
+        <div class="d-flex gap-2">
+
+            <a asp-action="CreateResult"
+               class="btn btn-primary">
+                + Add Result
+            </a>
+
+            <a asp-action="Dashboard"
+               class="btn btn-outline-secondary">
+                Back to Dashboard
+            </a>
+
+        </div>
+    </div>
+
+    <div class="card shadow-sm border-0">
+        <div class="card-body p-4">
+
+            <h5 class="fw-bold mb-3">Event Results</h5>
+
+            <p class="text-muted">
+                Total Results: @(Model?.Count ?? 0)
+            </p>
+
+            @if (Model == null || !Model.Any())
+            {
+                <div class="alert alert-info">
+                    No results have been recorded yet.
+                </div>
+            }
+            else
+            {
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+
+                        <thead class="table-light">
+                            <tr>
+                                <th>Result ID</th>
+                                <th>Participant</th>
+                                <th>Event</th>
+                                <th>Finishing Time</th>
+                                <th>Position</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var result in Model)
+                            {
+                                <tr>
+                                    <td>@result.ResultID</td>
+                                    <td class="fw-semibold">
+                                        @result.ParticipantName
+                                    </td>
+                                    <td>@result.EventName</td>
+                                    <td>
+                                        @(result.FinishTime?.ToString(@"hh\:mm\:ss") ?? "N/A")
+                                    </td>
+                                    <td>
+                                        @(result.Position?.ToString() ?? "N/A")
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+
+                    </table>
+                </div>
+            }
+
+        </div>
+    </div>
+
+</div>

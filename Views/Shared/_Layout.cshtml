@@ -1,0 +1,135 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - RaceDay</title>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/RaceDayMVC.styles.css" asp-append-version="true" />
+</head>
+
+<body>
+
+    <!-- NAVIGATION -->
+    <header>
+        <nav class="navbar navbar-expand-lg raceday-navbar shadow-sm">
+            <div class="container">
+
+                <a class="navbar-brand raceday-brand"
+                   asp-controller="Home"
+                   asp-action="Index">
+                    <span class="brand-icon">R</span>
+                    RACEDAY
+                </a>
+
+                <button class="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#racedayNavigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse"
+                     id="racedayNavigation">
+
+                    <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-3">
+
+                        <li class="nav-item">
+                            <a class="nav-link"
+                               asp-controller="Home"
+                               asp-action="Index">
+                                Home
+                            </a>
+                        </li>
+
+                        @if (Context.Session.GetString("UserRole") == "Participant")
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link"
+                                   asp-controller="Participant"
+                                   asp-action="Index">
+                                    Events
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link"
+                                   asp-controller="Participant"
+                                   asp-action="MyResults">
+                                    My Results
+                                </a>
+                            </li>
+                        }
+
+                        @if (Context.Session.GetString("UserRole") == "Organiser")
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link"
+                                   asp-controller="Organiser"
+                                   asp-action="Dashboard">
+                                    Dashboard
+                                </a>
+                            </li>
+                        }
+
+                        @if (Context.Session.GetInt32("UserID") == null)
+                        {
+                            <li class="nav-item">
+                                <a class="btn raceday-nav-button"
+                                   asp-controller="Account"
+                                   asp-action="Login">
+                                    Login
+                                </a>
+                            </li>
+                        }
+
+                    </ul>
+
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- PAGE CONTENT -->
+    <main role="main" class="raceday-main">
+        @RenderBody()
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="raceday-footer">
+        <div class="container py-4">
+
+            <div class="row align-items-center">
+
+                <div class="col-md-6">
+                    <h5 class="fw-bold mb-1">
+                        <span class="text-warning">R</span>ACEDAY
+                    </h5>
+
+                    <p class="mb-0">
+                        Run. Ride. Achieve.
+                    </p>
+                </div>
+
+                <div class="col-md-6 text-md-end mt-3 mt-md-0">
+                    <small>
+                        &copy; 2026 RaceDay. All rights reserved.
+                    </small>
+                </div>
+
+            </div>
+
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+</html>

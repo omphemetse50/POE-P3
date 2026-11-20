@@ -1,0 +1,230 @@
+﻿@model List<RaceDayMVC.Models.EventViewModel>
+
+@{
+    ViewData["Title"] = "Organiser Dashboard";
+}
+
+<div class="container mt-5">
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["SuccessMessage"]
+        </div>
+    }
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["ErrorMessage"]
+        </div>
+    }
+
+    <!-- DASHBOARD HEADER -->
+    <div class="d-flex justify-content-between align-items-center mb-5">
+        <div>
+            <h1 class="fw-bold">Organiser Dashboard</h1>
+            <p class="text-muted">
+                Welcome back, @ViewBag.UserName!
+                Manage your RaceDay events and participants.
+            </p>
+        </div>
+
+        <span class="badge bg-primary fs-6">Organiser</span>
+    </div>
+
+    <!-- CREATE EVENT BUTTON -->
+    <a asp-controller="Organiser"
+       asp-action="CreateEvent"
+       class="btn btn-primary mb-4">
+        + Create New Event
+    </a>
+
+    <!-- DASHBOARD CARDS -->
+    <div class="row g-4 mb-5">
+
+        <!-- TOTAL EVENTS CARD -->
+        <div class="col-md-6 col-lg-4">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body p-4">
+                    <p class="text-muted mb-2">Total Events</p>
+
+                    <h2 class="fw-bold">
+                        @((Model ?? new()).Count)
+                    </h2>
+
+                    <p class="text-muted mb-0">
+                        Events in RaceDay
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- PARTICIPANTS CARD -->
+        <div class="col-md-6 col-lg-4">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body p-4">
+                    <p class="text-muted mb-2">Participants</p>
+
+                    <h5 class="fw-bold">Manage Participants</h5>
+
+                    <p class="text-muted">
+                        View registered participants and their details.
+                    </p>
+
+                    <a asp-controller="Organiser"
+                       asp-action="Participants"
+                       class="btn btn-outline-primary">
+                        View Participants
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- ENROLMENTS CARD -->
+        <div class="col-md-6 col-lg-4">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body p-4">
+                    <p class="text-muted mb-2">Enrolments</p>
+
+                    <h5 class="fw-bold">Manage Enrolments</h5>
+
+                    <p class="text-muted">
+                        View participant entries and their enrolment status.
+                    </p>
+
+                    <a asp-controller="Organiser"
+                       asp-action="Enrolments"
+                       class="btn btn-outline-primary">
+                        View Enrolments
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- RESULTS CARD -->
+        <div class="col-md-6 col-lg-4">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body p-4">
+                    <p class="text-muted mb-2">Results</p>
+
+                    <h5 class="fw-bold">Manage Results</h5>
+
+                    <p class="text-muted">
+                        View participant finishing times and positions.
+                    </p>
+
+                    <a asp-controller="Organiser"
+                       asp-action="Results"
+                       class="btn btn-outline-primary">
+                        View Results
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ALL EVENTS SECTION -->
+    <h2 class="fw-bold mb-4">All Events</h2>
+
+    @if (Model == null || !Model.Any())
+    {
+        <div class="alert alert-info">
+            No events are currently available.
+        </div>
+    }
+    else
+    {
+        <div class="row g-4">
+
+            @foreach (var raceEvent in Model)
+            {
+                <div class="col-md-6 col-lg-4">
+
+                    <div class="card shadow-sm border-0 h-100">
+                        <div class="card-body p-4">
+
+                            <span class="badge bg-primary mb-3">
+                                @raceEvent.EventType
+                            </span>
+
+                            <h4 class="fw-bold">
+                                @raceEvent.Name
+                            </h4>
+
+                            <p class="text-muted">
+                                @raceEvent.Description
+                            </p>
+
+                            <hr />
+
+                            <p>
+                                <strong>Location:</strong>
+                                @raceEvent.Location
+                            </p>
+
+                            <p>
+                                <strong>Date:</strong>
+                                @raceEvent.Date.ToString("dd MMMM yyyy")
+                            </p>
+
+                            <p>
+                                <strong>Distance:</strong>
+                                @raceEvent.Distance
+                            </p>
+
+                            <hr />
+
+                            <div class="d-flex gap-2">
+
+                                <!-- EDIT EVENT -->
+                                <a asp-controller="Organiser"
+                                   asp-action="EditEvent"
+                                   asp-route-id="@raceEvent.EventID"
+                                   class="btn btn-outline-primary btn-sm">
+                                    Edit
+                                </a>
+
+                                <!-- DELETE EVENT -->
+                                <form asp-controller="Organiser"
+                                      asp-action="DeleteEvent"
+                                      asp-route-id="@raceEvent.EventID"
+                                      method="post"
+                                      onsubmit="return confirm('Are you sure you want to delete this event?');">
+
+                                    @Html.AntiForgeryToken()
+
+                                    <button type="submit"
+                                            class="btn btn-outline-danger btn-sm">
+                                        Delete
+                                    </button>
+
+                                </form>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            }
+
+        </div>
+    }
+
+    <!-- LOGOUT BUTTON -->
+    <form asp-controller="Account"
+          asp-action="Logout"
+          method="post"
+          class="mt-5">
+
+        @Html.AntiForgeryToken()
+
+        <button type="submit" class="btn btn-outline-danger">
+            Logout
+        </button>
+
+    </form>
+
+</div>

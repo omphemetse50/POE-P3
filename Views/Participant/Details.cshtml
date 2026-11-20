@@ -1,0 +1,148 @@
+﻿@model RaceDayMVC.Models.EventDetailsViewModel
+
+@{
+    ViewData["Title"] = "Event Details";
+}
+
+<div class="container mt-5">
+
+    <a asp-action="Index" class="btn btn-outline-secondary mb-4">
+        &larr; Back to Events
+    </a>
+
+    <div class="card shadow-sm border-0 mb-4">
+        <div class="card-body p-4">
+
+            <span class="badge bg-primary mb-3">
+                @Model.Event.EventType
+            </span>
+
+            <h1 class="fw-bold">@Model.Event.Name</h1>
+
+            <p class="text-muted">
+                @Model.Event.Description
+            </p>
+
+            <hr />
+
+            <p>
+                <strong>Location:</strong>
+                @Model.Event.Location
+            </p>
+
+            <p>
+                <strong>Date:</strong>
+                @Model.Event.Date.ToString("dd MMMM yyyy")
+            </p>
+
+            <p>
+                <strong>Distance:</strong>
+                @Model.Event.Distance
+            </p>
+
+        </div>
+    </div>
+
+    <h2 class="fw-bold mb-3">Available Categories</h2>
+
+    @if (Model.Categories == null || !Model.Categories.Any())
+    {
+        <div class="alert alert-info">
+            No categories have been added to this event yet.
+        </div>
+    }
+    else
+    {
+        <div class="row g-3">
+
+            @foreach (var category in Model.Categories)
+            {
+                <div class="col-md-6 col-lg-4">
+
+                    <div class="card shadow-sm border-0 h-100">
+                        <div class="card-body p-4">
+
+                            <h5 class="fw-bold">
+                                @category.CategoryName
+                            </h5>
+
+                            <p>
+                                <strong>Type:</strong>
+                                @category.CategoryType
+                            </p>
+
+                            <p>
+                                <strong>Minimum:</strong>
+                                @category.MinValue
+                            </p>
+
+                            <p>
+                                <strong>Maximum:</strong>
+                                @category.MaxValue
+                            </p>
+
+                        </div>
+                    </div>
+
+                </div>
+            }
+
+        </div>
+    }
+
+    <div class="card shadow-sm border-0 mt-4">
+        <div class="card-body p-4">
+
+            <h3 class="fw-bold mb-3">Enrol in This Event</h3>
+
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <div class="alert alert-success">
+                    @TempData["SuccessMessage"]
+                </div>
+            }
+
+            @if (TempData["ErrorMessage"] != null)
+            {
+                <div class="alert alert-danger">
+                    @TempData["ErrorMessage"]
+                </div>
+            }
+
+            <form asp-controller="Participant"
+                  asp-action="Enrol"
+                  method="post">
+                @Html.AntiForgeryToken()
+
+                <input type="hidden"
+                       name="EventID"
+                       value="@Model.Event.EventID" />
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">
+                        Select Your Category
+                    </label>
+
+                    <select name="CategoryID" class="form-select" required>
+                        <option value="">Choose a category</option>
+
+                        @foreach (var category in Model.Categories)
+                        {
+                            <option value="@category.CategoryID">
+                                @category.CategoryName
+                            </option>
+                        }
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100">
+                    Enrol Now
+                </button>
+
+            </form>
+
+        </div>
+    </div>
+
+
+</div>

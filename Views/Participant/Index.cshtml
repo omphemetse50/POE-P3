@@ -1,0 +1,118 @@
+﻿@model List<RaceDayMVC.Models.EventViewModel>
+
+@{
+    ViewData["Title"] = "Participant Dashboard";
+}
+
+<div class="container mt-5">
+    <a asp-controller="Participant"
+       asp-action="MyResults"
+       class="btn btn-warning fw-bold">
+        <i class="bi bi-trophy-fill me-2"></i>
+        My Results
+    </a>
+
+    <div class="mb-5">
+        <h1 class="fw-bold">Welcome, @ViewBag.UserName!</h1>
+        <p class="text-muted">
+            Discover upcoming events and manage your RaceDay activities.
+        </p>
+
+        <a asp-controller="Participant"
+           asp-action="Profile"
+           class="btn btn-outline-primary mt-3">
+            <i class="bi bi-person-circle"></i>
+            Complete Your Profile
+        </a>
+    </div>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show">
+            @TempData["SuccessMessage"]
+
+            <button type="button"
+                    class="btn-close"
+                    data-bs-dismiss="alert">
+            </button>
+        </div>
+    }
+
+    <h2 class="fw-bold mb-4">Available Events</h2>
+
+    @if (Model == null || !Model.Any())
+    {
+        <div class="alert alert-info">
+            No events are currently available.
+        </div>
+    }
+    else
+    {
+        <div class="row g-4">
+
+            @foreach (var raceEvent in Model)
+            {
+                <div class="col-md-6 col-lg-4">
+
+                    <div class="card h-100 shadow-sm border-0">
+
+                        <div class="card-body p-4">
+
+                            <span class="badge bg-primary mb-3">
+                                @raceEvent.EventType
+                            </span>
+
+                            <h4 class="fw-bold">
+                                @raceEvent.Name
+                            </h4>
+
+                            <p class="text-muted">
+                                @raceEvent.Description
+                            </p>
+
+                            <hr />
+
+                            <p>
+                                <strong>Location:</strong>
+                                @raceEvent.Location
+                            </p>
+
+                            <p>
+                                <strong>Date:</strong>
+                                @raceEvent.Date.ToString("dd MMMM yyyy")
+                            </p>
+
+                            <p>
+                                <strong>Distance:</strong>
+                                @raceEvent.Distance
+                            </p>
+
+                            <a asp-controller="Participant"
+                               asp-action="Details"
+                               asp-route-id="@raceEvent.EventID"
+                               class="btn btn-primary w-100 mt-3">
+                                View Event Details
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            }
+
+        </div>
+    }
+
+    <form asp-controller="Account"
+          asp-action="Logout"
+          method="post"
+          class="mt-5">
+
+        <button type="submit" class="btn btn-outline-danger">
+            Logout
+        </button>
+
+    </form>
+
+</div>

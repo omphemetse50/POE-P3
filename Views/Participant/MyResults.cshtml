@@ -1,0 +1,132 @@
+﻿@model List<RaceDayMVC.Models.ResultViewModel>
+
+@{
+    ViewData["Title"] = "My Results";
+}
+
+<div class="container mt-5">
+
+    <!-- HEADER -->
+    <div class="p-5 mb-4 rounded-4 text-white"
+         style="background: linear-gradient(120deg, #101d35, #243e62);">
+
+        <h1 class="fw-bold">MY RESULTS</h1>
+
+        <p class="mb-0 text-light">
+            Every step counts. Track your race achievements here.
+        </p>
+
+        <h5 class="mt-3 text-warning">
+            Welcome, @ViewBag.UserName!
+        </h5>
+
+    </div>
+
+    <!-- SUMMARY CARDS -->
+    <div class="row g-4 mb-4">
+
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm rounded-4">
+                <div class="card-body p-4">
+                    <p class="text-muted mb-1">Total Results</p>
+                    <h2 class="fw-bold text-primary">
+                        @(Model?.Count ?? 0)
+                    </h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm rounded-4">
+                <div class="card-body p-4">
+                    <p class="text-muted mb-1">Best Position</p>
+                    <h2 class="fw-bold text-warning">
+                        @(Model != null && Model.Any(r => r.Position.HasValue)
+                                                ? Model.Where(r => r.Position.HasValue).Min(r => r.Position)
+                                                : "N/A")
+                    </h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm rounded-4">
+                <div class="card-body p-4">
+                    <p class="text-muted mb-1">Events Completed</p>
+                    <h2 class="fw-bold text-success">
+                        @(Model?.Count ?? 0)
+                    </h2>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- RESULTS TABLE -->
+    <div class="card border-0 shadow-sm rounded-4">
+
+        <div class="card-body p-4">
+
+            <h4 class="fw-bold mb-4">
+                My Race History
+            </h4>
+
+            @if (Model == null || !Model.Any())
+            {
+                <div class="alert alert-info">
+                    You don't have any published results yet.
+                    Keep participating and check back later!
+                </div>
+            }
+            else
+            {
+                <div class="table-responsive">
+
+                    <table class="table table-hover align-middle">
+
+                        <thead style="background-color: #101d35; color: white;">
+                            <tr>
+                                <th>Event</th>
+                                <th>Finishing Time</th>
+                                <th>Position</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var result in Model)
+                            {
+                                <tr>
+                                    <td class="fw-semibold">
+                                        @result.EventName
+                                    </td>
+
+                                    <td>
+                                        @(result.FinishTime?.ToString(@"hh\:mm\:ss") ?? "N/A")
+                                    </td>
+
+                                    <td>
+                                        <span class="badge bg-warning text-dark">
+                                            @(result.Position?.ToString() ?? "N/A")
+                                        </span>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+
+                    </table>
+
+                </div>
+            }
+
+        </div>
+
+    </div>
+
+    <div class="mt-4">
+        <a asp-action="Index"
+           class="btn btn-outline-dark">
+            Back to Events
+        </a>
+    </div>
+
+</div>
