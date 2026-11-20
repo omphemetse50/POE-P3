@@ -14,3 +14,4 @@ Implement search and filtering functionality
 	Improve responsive design and styling
 Fix application bugs and improve performance
 Update README with project documentation
+Finalise RaceDayMVC project and update application
